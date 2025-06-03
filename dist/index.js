@@ -58,7 +58,7 @@ async function main() {
         const transport = new StdioServerTransport();
         await server.connect(transport);
     }
-    catch (error) {
+    catch {
         process.exit(1);
     }
 }
