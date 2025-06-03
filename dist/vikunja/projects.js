@@ -224,7 +224,7 @@ export const handlers = {
                 {
                     type: 'text',
                     text: JSON.stringify(projects, null, 2),
-                }
+                },
             ],
         };
     },

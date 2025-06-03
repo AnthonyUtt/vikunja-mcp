@@ -20,19 +20,21 @@
         default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nodejs_24
-            nodejs_24.pkgs.pnpm
+            bun
           ];
 
           shellHook = ''
-            # set up pnpm locally to install latest version
-            export PNPM_HOME=$HOME/.pnpm-store
-            export PATH=$PNPM_HOME:$PATH
+            # # set up pnpm locally to install latest version
+            # export PNPM_HOME=$HOME/.pnpm-store
+            # export PATH=$PNPM_HOME:$PATH
+            #
+            # # install pnpm (should grab latest version to keep lock file up to date)
+            # pnpm self-update
+            #
+            # # install deps
+            # pnpm install
 
-            # install pnpm (should grab latest version to keep lock file up to date)
-            pnpm self-update
-
-            # install deps
-            pnpm install
+            bun install
           '';
         };
       };

@@ -4,7 +4,20 @@ export const HexColorSchema = z.string().max(7).startsWith('#');
 export const IdentifierSchema = z.string().min(0).max(10);
 export const DateTimeSchema = z.iso.datetime();
 export const RightsSchema = z.number().int().min(0).max(2); // 0: RO, 1: RW, 2: Admin
-export const RelationKindSchema = z.enum(['unknown', 'subtask', 'parenttask', 'related', 'duplicateof', 'duplicates', 'blocking', 'blocked', 'precedes', 'follows', 'copiedfrom', 'copiedto']);
+export const RelationKindSchema = z.enum([
+    'unknown',
+    'subtask',
+    'parenttask',
+    'related',
+    'duplicateof',
+    'duplicates',
+    'blocking',
+    'blocked',
+    'precedes',
+    'follows',
+    'copiedfrom',
+    'copiedto',
+]);
 export const UserSchema = z.object({
     created: DateTimeSchema,
     email: z.string(),

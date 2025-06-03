@@ -1,6 +1,6 @@
 import { serviceInstance, wrapRequest } from './common.js';
 import { z } from 'zod/v4';
-import { DateTimeSchema, HexColorSchema, IdentifierSchema, UserSchema, LabelSchema, RelationKindSchema } from './schema.js';
+import { DateTimeSchema, HexColorSchema, IdentifierSchema, UserSchema, LabelSchema, RelationKindSchema, } from './schema.js';
 const TaskSchema = z.object({
     assignees: z.array(UserSchema),
     attachments: z.array(z.unknown()),
@@ -33,7 +33,11 @@ const getTask = async (taskId) => wrapRequest(serviceInstance.get(`/tasks/${task
 const createTask = async (projectId, task) => wrapRequest(serviceInstance.put(`/projects/${projectId}/tasks`, task));
 const updateTask = async (taskId, task) => wrapRequest(serviceInstance.post(`/tasks/${taskId}`, task));
 const deleteTask = async (taskId) => wrapRequest(serviceInstance.delete(`/tasks/${taskId}`));
-const createRelation = async (taskId, otherTaskId, relationKind) => wrapRequest(serviceInstance.put(`/tasks/${taskId}/relations`, { task_id: taskId, other_task_id: otherTaskId, relation_kind: relationKind }));
+const createRelation = async (taskId, otherTaskId, relationKind) => wrapRequest(serviceInstance.put(`/tasks/${taskId}/relations`, {
+    task_id: taskId,
+    other_task_id: otherTaskId,
+    relation_kind: relationKind,
+}));
 const deleteRelation = async (taskId, kind, otherTaskId) => wrapRequest(serviceInstance.delete(`/tasks/${taskId}/relations/${kind}/${otherTaskId}`));
 const getTaskComments = async (taskId) => wrapRequest(serviceInstance.get(`/tasks/${taskId}/comments`));
 const createTaskComment = async (taskId, comment) => wrapRequest(serviceInstance.put(`/tasks/${taskId}/comments`, { comment }));
@@ -183,8 +187,27 @@ export const toolDefinitions = [
             type: 'object',
             properties: {
                 taskId: { type: 'integer', description: 'The ID of the task' },
-                otherTaskId: { type: 'integer', description: 'The ID of the other task' },
-                relationKind: { type: 'string', enum: ['unknown', 'subtask', 'parenttask', 'related', 'duplicateof', 'duplicates', 'blocking', 'blocked', 'precedes', 'follows', 'copiedfrom', 'copiedto'] },
+                otherTaskId: {
+                    type: 'integer',
+                    description: 'The ID of the other task',
+                },
+                relationKind: {
+                    type: 'string',
+                    enum: [
+                        'unknown',
+                        'subtask',
+                        'parenttask',
+                        'related',
+                        'duplicateof',
+                        'duplicates',
+                        'blocking',
+                        'blocked',
+                        'precedes',
+                        'follows',
+                        'copiedfrom',
+                        'copiedto',
+                    ],
+                },
             },
             required: ['taskId', 'otherTaskId', 'relationKind'],
         },
@@ -196,8 +219,27 @@ export const toolDefinitions = [
             type: 'object',
             properties: {
                 taskId: { type: 'integer', description: 'The ID of the task' },
-                kind: { type: 'string', enum: ['unknown', 'subtask', 'parenttask', 'related', 'duplicateof', 'duplicates', 'blocking', 'blocked', 'precedes', 'follows', 'copiedfrom', 'copiedto'] },
-                otherTaskId: { type: 'integer', description: 'The ID of the other task' },
+                kind: {
+                    type: 'string',
+                    enum: [
+                        'unknown',
+                        'subtask',
+                        'parenttask',
+                        'related',
+                        'duplicateof',
+                        'duplicates',
+                        'blocking',
+                        'blocked',
+                        'precedes',
+                        'follows',
+                        'copiedfrom',
+                        'copiedto',
+                    ],
+                },
+                otherTaskId: {
+                    type: 'integer',
+                    description: 'The ID of the other task',
+                },
             },
             required: ['taskId', 'kind', 'otherTaskId'],
         },
@@ -268,7 +310,10 @@ export const toolDefinitions = [
             type: 'object',
             properties: {
                 taskId: { type: 'integer', description: 'The ID of the task' },
-                attachment: { type: 'string', description: 'The file, as multipart/form-data' },
+                attachment: {
+                    type: 'string',
+                    description: 'The file, as multipart/form-data',
+                },
             },
             required: ['taskId', 'attachment'],
         },
@@ -280,7 +325,10 @@ export const toolDefinitions = [
             type: 'object',
             properties: {
                 taskId: { type: 'integer', description: 'The ID of the task' },
-                attachmentId: { type: 'integer', description: 'The ID of the attachment' },
+                attachmentId: {
+                    type: 'integer',
+                    description: 'The ID of the attachment',
+                },
             },
             required: ['taskId', 'attachmentId'],
         },
@@ -292,7 +340,10 @@ export const toolDefinitions = [
             type: 'object',
             properties: {
                 taskId: { type: 'integer', description: 'The ID of the task' },
-                attachmentId: { type: 'integer', description: 'The ID of the attachment' },
+                attachmentId: {
+                    type: 'integer',
+                    description: 'The ID of the attachment',
+                },
             },
             required: ['taskId', 'attachmentId'],
         },
