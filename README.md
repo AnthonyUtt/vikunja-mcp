@@ -13,7 +13,27 @@ Basic MCP server for Vikunja, maybe will add more features in the future
 - Delete task
 
 ## Installation
-Not currently in the npm registry, so local builds only:
+Via `npx`:
+```json
+{
+    "mcpServers": {
+        // ... other config
+        "vikunja": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "vikunja-mcp"
+            ],
+            "env": [
+                "VIKUNJA_API_BASE": "https://app.vikunja.cloud",
+                "VIKUNJA_API_TOKEN": "<your_token_here>"
+            ]
+        }
+    }
+}
+```
+
+Or local build:
 ```bash
 git clone https://github.com/AnthonyUtt/vikunja-mcp && cd vikunja-mcp
 pnpm install
